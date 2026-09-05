@@ -1,0 +1,153 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://raw.githubusercontent.com/NDI/neapolitan-nlp/main/data/schemas/dictionary_entry.schema.json",
+  "title": "Neapolitan Dictionary Entry Schema",
+  "description": "JSON Schema for validating individual lemmatized entries in the Neapolitan Digital Infrastructure (NDI) dictionary.",
+  "type": "object",
+  "required": [
+    "id",
+    "lemma",
+    "pos",
+    "ipa",
+    "translations",
+    "meta"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Unique deterministic slug identifier for the entry (e.g. 'fiatella_noun', 'fa_verb').",
+      "pattern": "^[a-z0-9_'-]+$"
+    },
+    "lemma": {
+      "type": "string",
+      "description": "The base canonical headword written in NDI Minimum Viable Orthography (MVO).",
+      "minLength": 1
+    },
+    "pos": {
+      "type": "string",
+      "description": "Part of Speech tag.",
+      "enum": [
+        "noun",
+        "verb",
+        "adjective",
+        "adverb",
+        "pronoun",
+        "preposition",
+        "conjunction",
+        "interjection",
+        "article",
+        "particle",
+        "prefix",
+        "suffix"
+      ]
+    },
+    "ipa": {
+      "type": "string",
+      "description": "Broad International Phonetic Alphabet (IPA) transcription.",
+      "pattern": "^/.*/$"
+    },
+    "gender": {
+      "type": "string",
+      "description": "Grammatical gender for nouns, pronouns, or adjectives.",
+      "enum": [
+        "masculine",
+        "feminine",
+        "neuter",
+        "common"
+      ]
+    },
+    "number": {
+      "type": "string",
+      "description": "Grammatical number preference for headword.",
+      "enum": [
+        "singular",
+        "plural",
+        "uncountable",
+        "dual"
+      ]
+    },
+    "metaphony": {
+      "type": "boolean",
+      "description": "Flag indicating if this word undergoes metaphonic internal vowel shifts (metafonia)."
+    },
+    "metaphonic_forms": {
+      "type": "object",
+      "description": "Derived metaphonic inflections when metaphony is true.",
+      "additionalProperties": false,
+      "properties": {
+        "masculine_singular": { "type": "string" },
+        "masculine_plural": { "type": "string" },
+        "feminine_singular": { "type": "string" },
+        "feminine_plural": { "type": "string" }
+      }
+    },
+    "translations": {
+      "type": "object",
+      "description": "Translations into target vehicular languages.",
+      "required": ["it"],
+      "additionalProperties": false,
+      "properties": {
+        "it": {
+          "type": "array",
+          "description": "Italian translations.",
+          "items": { "type": "string", "minLength": 1 },
+          "minItems": 1
+        },
+        "en": {
+          "type": "array",
+          "description": "English translations.",
+          "items": { "type": "string", "minLength": 1 },
+          "minItems": 1
+        }
+      }
+    },
+    "examples": {
+      "type": "array",
+      "description": "Parallel example usage sentences.",
+      "items": {
+        "type": "object",
+        "required": ["nap", "it"],
+        "additionalProperties": false,
+        "properties": {
+          "nap": { "type": "string", "minLength": 1 },
+          "it": { "type": "string", "minLength": 1 },
+          "en": { "type": "string", "minLength": 1 }
+        }
+      }
+    },
+    "etymology": {
+      "type": "object",
+      "description": "Etymological origins.",
+      "additionalProperties": false,
+      "properties": {
+        "root": { "type": "string" },
+        "language": { "type": "string", "example": "Latin, Greek, Spanish, French" },
+        "notes": { "type": "string" }
+      }
+    },
+    "meta": {
+      "type": "object",
+      "description": "Metadata regarding dataset provenance and verification.",
+      "required": ["status", "source"],
+      "additionalProperties": false,
+      "properties": {
+        "status": {
+          "type": "string",
+          "enum": ["draft", "proposed", "verified", "deprecated"]
+        },
+        "source": {
+          "type": "string",
+          "description": "Source citation or creation method (e.g., 'curated_lexicon', 'llm_extracted', 'academic_paper')."
+        },
+        "confidence": {
+          "type": "string",
+          "enum": ["low", "medium", "high"]
+        },
+        "notes": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}

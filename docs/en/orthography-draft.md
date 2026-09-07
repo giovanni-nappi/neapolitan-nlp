@@ -276,10 +276,22 @@ dictionary lemma (e.g., stripping `-o` and reverting `u` ➔ `o` to link *russo*
 ## 7. Alphabet & Digraph Summary
 
 MVO utilizes the standard Latin alphabet, incorporating specific graphemes and digraphs to represent
-Neapolitan phonology. To ensure text normalization, these must be used consistently across the
-lexicon.
+Neapolitan phonology.
+To ensure text normalization, these must be used consistently across the lexicon.
 
-### 7.1 The Neapolitan *Jod* (`j`)
+### 7.1 Latin Consonant Clusters
+Historically, Neapolitan palatalized several Latin consonant + `l` clusters.
+MVO relies on established, traditional digraphs to represent these shifts rather than reverting to
+unreadable Latin etymology:
+
+| Latin Cluster | Latin Root | Neapolitan Shift | MVO Spelling | Notes |
+| :--- | :--- | :--- | :--- | :--- |
+| **fl-** | *florem* | `[ʃ]` | **sciore** | Spelled with `sci-` / `sce-` |
+| **pl-** | *plorare* | `[kj]` | **chiagnere** | Spelled with `chi-` |
+| **cl-** | *clamare* | `[kj]` | **chiammà** | Spelled with `chi-` |
+| **bl-** | *blank* (Germ.) | `[j]` | **janco** | Spelled with `j-` |
+
+### 7.2 The Neapolitan *Jod* (`j`)
 The letter **j** (i-lunga) is explicitly retained in the MVO alphabet as a distinct grapheme.
 It represents the palatal approximant phoneme `/j/` (similar to the English 'y').
 It is typically found at the beginning of words derived from Latin *di-*, *i-*, or *bl-*, and
@@ -289,13 +301,17 @@ between vowels.
 * ✅ *jammo* (from *eamus*)
 * ❌ *iurnata*, ❌ *ianco*, ❌ *giammo* (These phonetic or Italianized spellings are deprecated).
 
-### 7.2 Digraph Summary
+### 7.3 Digraph Summary
 
-| Phoneme | MVO Digraph | Example (MVO) | Italian Cognate | Notes |
+For Natural Language Processing (specifically Grapheme-to-Phoneme pipelines), the tokenizer relies
+on the following standard digraph mappings:
+
+| MVO Digraph | Context | Phoneme | Example | Notes |
 | :--- | :--- | :--- | :--- | :--- |
-| `/ʃ/` | **sc** (+ e, i) | *sciore* | fiore | Represents the voiceless postalveolar fricative. |
-| `/ɲ/` | **gn** | *muntagna* | montagna | Palatal nasal. Retained etymologically. |
-| `/ʎ/` | **gli** | *figlio* | figlio | Palatal lateral. Though often pronounced as `/j/` in modern speech (*fijo*), MVO retains the etymological `gli` for lexical compatibility. |
+| **sc** | Before **e, i** | `[ʃ]` | *sciore* | Voiceless postalveolar fricative. |
+| **sc** | Before **a, o, u** | `[ʃk]` | *scarpa* | Palatalized *s-impura* + velar plosive. |
+| **gn** | Anywhere | `[ɲ]` | *muntagna* | Palatal nasal. Retained etymologically. |
+| **gli** | Anywhere | `[ʎ]` | *figlio* | Palatal lateral. Retained etymologically for lexical compatibility, despite often shifting to `[j]` in modern speech. |
 
 ---
 

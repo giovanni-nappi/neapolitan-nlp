@@ -1,0 +1,57 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "NeapolitanLemma",
+  "description": "Schema for Neapolitan lexicon entries",
+  "type": "object",
+  "required": [
+    "lemma",
+    "pos",
+    "it_translations",
+    "metaphony",
+    "forms"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "lemma": {
+      "type": "string",
+      "pattern": "^[a-zàèéìòóù'\\s-]+$",
+      "description": "Base headword in Neapolitan orthography"
+    },
+    "phonetic_display": {
+      "type": "string",
+      "description": "Optional stress-accented or phonetic representation"
+    },
+    "pos": {
+      "type": "string",
+      "enum": [
+        "adj",
+        "adv",
+        "conj",
+        "det",
+        "interj",
+        "noun",
+        "num",
+        "prep",
+        "pron",
+        "verb"
+      ],
+      "description": "Part-of-speech category"
+    },
+    "it_translations": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "minItems": 1,
+      "description": "Italian translation equivalents"
+    },
+    "metaphony": {
+      "type": "boolean",
+      "description": "Whether the entry undergoes metaphonic vowel alternation"
+    },
+    "forms": {
+      "type": "object",
+      "description": "Inflected or derived morphological variants"
+    }
+  }
+}

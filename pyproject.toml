@@ -24,15 +24,28 @@ classifiers = [
     "Programming Language :: Python :: 3.11",
     "Topic :: Text Processing :: Linguistic",
 ]
-dependencies = []
+dependencies = [
+    "jsonschema>=4.0",
+]
 
 [project.optional-dependencies]
 dev = [
     "pytest>=7.0",
-    "jsonschema>=4.0",
+    "pytest-cov",
     "black",
-    "flake8"
+    "flake8",
 ]
 
 [tool.setuptools.packages.find]
 where = ["src"]
+
+[tool.pytest.ini_options]
+minversion = "7.0"
+addopts = "-v --tb=short"
+testpaths = ["tests"]
+pythonpath = ["src", "."]
+
+[tool.black]
+line-length = 88
+target-version = ['py310', 'py311', 'py312']
+include = '\.pyi?$'

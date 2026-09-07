@@ -1,0 +1,18 @@
+[
+  {
+    "lemma": "gruosso",
+    "pos": "adj",
+    "it_translations": [
+      "grosso",
+      "grande"
+    ],
+    "metaphony": true,
+    "forms": {
+      "base": "gruosso",
+      "m_sg": "gruosso",
+      "f_sg": "grossa",
+      "m_pl": "gruossi",
+      "f_pl": "grosse"
+    }
+  }
+]

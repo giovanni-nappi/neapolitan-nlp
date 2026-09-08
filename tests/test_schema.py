@@ -6,13 +6,19 @@ PROJECT_ROOT = Path(__file__).parent.parent
 LEXICON_DIR = PROJECT_ROOT / "data" / "lexicon"
 
 ALLOWED_POS = {
-    "adj", "adv", "conj", "det", "interj",
-    "noun", "num", "prep", "pron", "verb"
+    "adj",
+    "adv",
+    "conj",
+    "det",
+    "interj",
+    "noun",
+    "num",
+    "prep",
+    "pron",
+    "verb",
 }
 
-ALLOWED_GENDER = {
-    "masculine", "feminine", "neuter", "common"
-}
+ALLOWED_GENDER = {"masculine", "feminine", "neuter", "common"}
 
 
 def get_lexicon_shards():

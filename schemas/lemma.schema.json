@@ -22,20 +22,15 @@
       "description": "Optional stress-accented or phonetic representation"
     },
     "pos": {
-      "type": "string",
-      "enum": [
-        "adj",
-        "adv",
-        "conj",
-        "det",
-        "interj",
-        "noun",
-        "num",
-        "prep",
-        "pron",
-        "verb"
-      ],
-      "description": "Part-of-speech category"
+      "$ref": "#/definitions/pos_type"
+    },
+    "gender": {
+      "$ref": "#/definitions/gender_type",
+      "description": "Canonical headword gender (singular)"
+    },
+    "alternating_gender": {
+      "type": "boolean",
+      "description": "Set to true if gender shifts between singular and plural forms (e.g. Latin neuter relics)"
     },
     "it_translations": {
       "type": "array",
@@ -51,7 +46,89 @@
     },
     "forms": {
       "type": "object",
-      "description": "Inflected or derived morphological variants"
+      "description": "Inflected morphological variants",
+      "additionalProperties": {
+        "oneOf": [
+          { "type": "string" },
+          { "$ref": "#/definitions/form_object" },
+          {
+            "type": "array",
+            "items": {
+              "oneOf": [
+                { "type": "string" },
+                { "$ref": "#/definitions/form_object" }
+              ]
+            }
+          }
+        ]
+      }
+    }
+  },
+  "definitions": {
+    "pos_type": {
+      "type": "string",
+      "description": "Part-of-speech category",
+      "oneOf": [
+        { "const": "adj", "description": "Adjective (aggettivo)" },
+        { "const": "adv", "description": "Adverb (avverbio)" },
+        { "const": "conj", "description": "Conjunction (congiunzione)" },
+        { "const": "det", "description": "Determiner or article (determinante / articolo)" },
+        { "const": "interj", "description": "Interjection (interiezione)" },
+        { "const": "noun", "description": "Noun (sostantivo)" },
+        { "const": "num", "description": "Numeral (numerale)" },
+        { "const": "prep", "description": "Preposition (preposizione)" },
+        { "const": "pron", "description": "Pronoun (pronome)" },
+        { "const": "verb", "description": "Verb (verbo)" }
+      ]
+    },
+    "gender_type": {
+      "type": "string",
+      "description": "Grammatical gender classification",
+      "oneOf": [
+        {
+          "const": "masculine",
+          "description": "Masculine gender (e.g. 'o guaglione)"
+        },
+        {
+          "const": "feminine",
+          "description": "Feminine gender (e.g. 'a guagliona)"
+        },
+        {
+          "const": "neuter",
+          "description": "Neuter of substance / neantro (e.g. 'o ffierro, 'o ppane)"
+        },
+        {
+          "const": "common",
+          "description": "Common gender: invariant headword form used for both male and female referents (e.g. 'o/'a cantante)"
+        }
+      ]
+    },
+    "form_object": {
+      "type": "object",
+      "required": ["form"],
+      "additionalProperties": false,
+      "properties": {
+        "form": {
+          "type": "string",
+          "description": "The inflected surface form"
+        },
+        "article": {
+          "type": "string",
+          "description": "Associated article (e.g. 'o, 'e)"
+        },
+        "gender": {
+          "$ref": "#/definitions/gender_type",
+          "description": "Gender override for this specific form"
+        },
+        "syntactic_gemination": {
+          "type": "boolean",
+          "description": "Indicates whether this form triggers or exhibits initial consonant doubling / phonosyntactic gemination (raddoppiamento fonosintattico)"
+        },
+        "notes": {
+          "type": "string",
+          "description": "Usage context or semantic distinctions (e.g. figurative vs. literal plurals)"
+        }
+      }
     }
   }
 }
